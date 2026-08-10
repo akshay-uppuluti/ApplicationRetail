@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Annapurna Wholesale"
+description = "A modern business website for Annapurna Paper Plates & Glasses Wholesale, showcasing products, wholesale services, contact details, gallery imagery, and the business location for customers in Nirmal, Telangana."
+version = "1.0.0"
+id = "artifacts/annapurna-wholesale"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25201
+
+[services.development]
+run = "pnpm --filter @workspace/annapurna-wholesale run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/annapurna-wholesale", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/annapurna-wholesale/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25201"
+BASE_PATH = "/"
