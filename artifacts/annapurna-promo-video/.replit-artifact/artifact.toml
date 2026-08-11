@@ -1,0 +1,28 @@
+kind = "video"
+previewPath = "/annapurna-promo-video/"
+title = "Annapurna Wholesale Promo"
+description = "A short animated promotional video for Annapurna Paper Plates & Glasses Wholesale, highlighting quality disposable products, bulk supply, local service, and direct contact options."
+version = "1.0.0"
+id = "artifacts/annapurna-promo-video"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/annapurna-promo-video/" ]
+localPort = 22137
+
+[services.development]
+run = "pnpm --filter @workspace/annapurna-promo-video run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/annapurna-promo-video", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/annapurna-promo-video/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22137"
+BASE_PATH = "/annapurna-promo-video/"
