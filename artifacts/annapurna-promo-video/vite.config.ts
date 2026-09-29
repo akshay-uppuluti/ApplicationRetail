@@ -18,13 +18,9 @@ if (Number.isNaN(port) || port <= 0) {
   throw new Error(`Invalid PORT value: "${rawPort}"`);
 }
 
-const basePath = process.env.BASE_PATH;
-
-if (!basePath) {
-  throw new Error(
-    'BASE_PATH environment variable is required but was not provided.',
-  );
-}
+const repositoryName = process.env.GITHUB_REPOSITORY?.split('/')[1];
+const fallbackBase = repositoryName ? `/${repositoryName}/` : '/';
+const basePath = process.env.BASE_PATH ?? fallbackBase;
 
 export default defineConfig({
   base: basePath,
